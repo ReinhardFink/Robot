@@ -1,13 +1,27 @@
 package robot;
 
-public class ConsolePanelWithThreads extends ConsolePanel {
+public class ConsolePanel_WITH_ASYN_Threads extends AbstractConsolePanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	public ConsolePanel_WITH_ASYN_Threads() {
+		super();
+	}
 
 	@Override
 	public void createScenario() {
 		createSimpleScenario();
 		//createProblemScenario();
+		/*
+		 * a GUI repaint has to placed here, because of deadlock when call from 
+		 * Main Thread for Room_WITH_SYNCED_Threads
+		 */
+		try {
+			room.paint();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -16,6 +30,12 @@ public class ConsolePanelWithThreads extends ConsolePanel {
 			CONSTANTS.printThreadInfo("start():");
 			new Thread(robot).start();
 		}
+	}
+	
+	@Override
+	protected void init() {
+		room = new Room_WITH_ASYN_Threads(this);
+		super.init();
 	}
 	
 	private void createSimpleScenario() {

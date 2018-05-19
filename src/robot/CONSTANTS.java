@@ -1,7 +1,7 @@
 package robot;
 public class CONSTANTS {
 	
-	public static final boolean THREAD_MESSAGE = false;
+	public static final boolean THREAD_MESSAGE = true;
 	public static final int SLEEP_MILLI_SEC = 100;
 	
 	// Dimension of our room
@@ -27,9 +27,9 @@ public class CONSTANTS {
 	public static final char CHAR_ROBOT_DOWN = 'v';
 	
 	// Array to access CHAR_ROBOT_* via DIRECTION_*
-	public static final char DIRECTION[] ={CHAR_ROBOT_RIGHT, CHAR_ROBOT_UP, CHAR_ROBOT_LEFT, CHAR_ROBOT_DOWN};
+	public static final char DIRECTION[] = {CHAR_ROBOT_RIGHT, CHAR_ROBOT_UP, CHAR_ROBOT_LEFT, CHAR_ROBOT_DOWN};
 	
-	public static void printThreadInfo(String message) {
+	public static synchronized void printThreadInfo(String message) {
 		if (THREAD_MESSAGE) {
 			System.out.println(message + " -> Thread Info: " + Thread.currentThread().toString());
 			int numberOfRunningThreads = 0;

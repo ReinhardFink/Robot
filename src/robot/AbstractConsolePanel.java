@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public abstract class ConsolePanel extends JPanel {
+public abstract class AbstractConsolePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -25,7 +25,7 @@ public abstract class ConsolePanel extends JPanel {
 	protected ArrayList<Robot> robots;
 	protected boolean isStopped;
 
-	public ConsolePanel() {
+	public AbstractConsolePanel() {
 		super();
 		// create Layout
 		this.setLayout(new BorderLayout());
@@ -35,7 +35,7 @@ public abstract class ConsolePanel extends JPanel {
 		this.add(outPutField, BorderLayout.CENTER);
 		createControlPanel();
 		// create Robot & Room
-		reset();
+		init();
 	}
 	
 	public int getSleepMilliSec() {
@@ -63,7 +63,7 @@ public abstract class ConsolePanel extends JPanel {
 		runButton.addActionListener(new ActionListener() {
 	
 			public void actionPerformed(ActionEvent arg0) {
-				ConsolePanel.this.isStopped = false;
+				AbstractConsolePanel.this.isStopped = false;
 				startRobots();
 			}
 		});
@@ -74,7 +74,7 @@ public abstract class ConsolePanel extends JPanel {
 		final JButton stopButton = new JButton("Stop");
 		stopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ConsolePanel.this.isStopped = true;
+				AbstractConsolePanel.this.isStopped = true;
 			}
 		});
 		return stopButton;
@@ -84,7 +84,7 @@ public abstract class ConsolePanel extends JPanel {
 		final JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				reset();
+				init();
 			}
 		});
 		return resetButton;
@@ -102,15 +102,22 @@ public abstract class ConsolePanel extends JPanel {
 		return sleepMilliSecsTextField;
 	}
 
-	private void reset() {
-		this.room = new Room(this);
+	protected void init() {
 		this.robots = new ArrayList<Robot>();
 		this.isStopped = false;
 		createScenario();
-		try {
-			room.paint();
-		} catch (InterruptedException e) {
-			CONSTANTS.printThreadInfo("reset():");
-		}
+		/*
+		 * problematic call to room.paint(), 
+		 * because if wait() appears in paint() for synchronous Threads
+		 * Main Thread is paused and never woken up again :-(
+		 * so:
+		 * room.paint() 
+		 * is moved into createScenario() IF needed
+		 * try {
+		 *		room.paint();
+		 * } catch (InterruptedException e) {
+		 *		CONSTANTS.printThreadInfo("reset():");
+		 * }
+		 */
 	}
 }

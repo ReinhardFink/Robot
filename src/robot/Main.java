@@ -29,12 +29,16 @@ public class Main extends JFrame {
 		JFrame aFrame = new JFrame("Roboter Simulator");
 		aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		aFrame.setSize(new Dimension(700, 600));
+		CONSTANTS.printThreadInfo("START ROBOT SIMULATION");
 		
-		// the easy way, to simulate a normal console WITHOU Threads
-		//aFrame.setContentPane(new ConsolePanelNoThreads());
+		// the easy way, to try to simulate a normal console WITHOU Threads
+		//aFrame.setContentPane(new ConsolePanel_NO_Threads());
 		
-		// the easy way, to simulate a normal console WITH Threads
-		aFrame.setContentPane(new ConsolePanelWithThreads());
+		// the easy way, to simulate a normal console WITH asynchronous Threads
+		//aFrame.setContentPane(new ConsolePanel_WITH_ASYN_Threads());
+		
+		// the easy way, to simulate a normal console WITH synchronous Threads
+		aFrame.setContentPane(new ConsolePanel_WITH_SYNCED_Threads());
 		
 		aFrame.setLocation(130, 30);
 		aFrame.setVisible(true);
