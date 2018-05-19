@@ -1,3 +1,4 @@
+package robot;
 public class CONSTANTS {
 	
 	public static final boolean THREAD_MESSAGE = false;

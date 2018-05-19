@@ -1,3 +1,4 @@
+package robot;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
@@ -18,13 +19,10 @@ public abstract class ConsolePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public JTextArea outPutField;
-	
 	private JTextField sleepMilliSecsTextField;
 	
-	protected Room room;
-	
+	protected Room room;	
 	protected ArrayList<Robot> robots;
-
 	protected boolean isStopped;
 
 	public ConsolePanel() {
@@ -75,7 +73,6 @@ public abstract class ConsolePanel extends JPanel {
 	private Component createStopButton() {
 		final JButton stopButton = new JButton("Stop");
 		stopButton.addActionListener(new ActionListener() {
-	
 			public void actionPerformed(ActionEvent arg0) {
 				ConsolePanel.this.isStopped = true;
 			}
@@ -86,7 +83,6 @@ public abstract class ConsolePanel extends JPanel {
 	private JButton createResetButton() {
 		final JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
-	
 			public void actionPerformed(ActionEvent arg0) {
 				reset();
 			}
@@ -110,7 +106,6 @@ public abstract class ConsolePanel extends JPanel {
 		this.room = new Room(this);
 		this.robots = new ArrayList<Robot>();
 		this.isStopped = false;
-		//createSimpleScenario();
 		createScenario();
 		try {
 			room.paint();

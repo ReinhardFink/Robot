@@ -1,3 +1,4 @@
+package robot;
 
 public class ConsolePanelWithThreads extends ConsolePanel {
 
@@ -5,7 +6,8 @@ public class ConsolePanelWithThreads extends ConsolePanel {
 
 	@Override
 	public void createScenario() {
-		createProblemScenario();
+		createSimpleScenario();
+		//createProblemScenario();
 	}
 
 	@Override
@@ -14,6 +16,11 @@ public class ConsolePanelWithThreads extends ConsolePanel {
 			CONSTANTS.printThreadInfo("start():");
 			new Thread(robot).start();
 		}
+	}
+	
+	private void createSimpleScenario() {
+		robots.add(new Robot(2,3,CONSTANTS.DIRECTION_RIGHT,room));
+		robots.add(new Robot(1,1,CONSTANTS.DIRECTION_DOWN,room));
 	}
 	
 	private void createProblemScenario() {

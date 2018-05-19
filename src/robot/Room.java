@@ -1,3 +1,4 @@
+package robot;
 import javax.swing.SwingUtilities;
 
 public class Room {

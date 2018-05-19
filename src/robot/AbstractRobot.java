@@ -1,3 +1,4 @@
+package robot;
 
 public abstract class AbstractRobot implements Runnable {
 	
