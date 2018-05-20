@@ -34,6 +34,7 @@ public abstract class AbstractConsolePanel extends JPanel {
 		outPutField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		this.add(outPutField, BorderLayout.CENTER);
 		createControlPanel();
+		isStopped = true;
 		// create Robot & Room
 		init();
 	}
@@ -63,7 +64,7 @@ public abstract class AbstractConsolePanel extends JPanel {
 		runButton.addActionListener(new ActionListener() {
 	
 			public void actionPerformed(ActionEvent arg0) {
-				AbstractConsolePanel.this.isStopped = false;
+				isStopped = false;
 				startRobots();
 			}
 		});
@@ -74,7 +75,7 @@ public abstract class AbstractConsolePanel extends JPanel {
 		final JButton stopButton = new JButton("Stop");
 		stopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AbstractConsolePanel.this.isStopped = true;
+				isStopped = true;
 			}
 		});
 		return stopButton;
@@ -84,6 +85,7 @@ public abstract class AbstractConsolePanel extends JPanel {
 		final JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				isStopped = true;
 				init();
 			}
 		});
@@ -104,20 +106,13 @@ public abstract class AbstractConsolePanel extends JPanel {
 
 	protected void init() {
 		this.robots = new ArrayList<Robot>();
-		this.isStopped = false;
 		createScenario();
 		/*
 		 * problematic call to room.paint(), 
 		 * because if wait() appears in paint() for synchronous Threads
 		 * Main Thread is paused and never woken up again :-(
-		 * so:
-		 * room.paint() 
-		 * is moved into createScenario() IF needed
-		 * try {
-		 *		room.paint();
-		 * } catch (InterruptedException e) {
-		 *		CONSTANTS.printThreadInfo("reset():");
-		 * }
+		 * so, we write String direct to JTextArea outPutField in derived classes
 		 */
+		outPutField.setText(room.toString());
 	}
 }

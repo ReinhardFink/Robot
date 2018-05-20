@@ -14,7 +14,7 @@ public class CONSTANTS {
 	public static final char CHAR_WALL = '#';
 	public static final char CHAR_FREE = '.';
 	
-	// directions rotate mathematical positiv
+	// directions rotate mathematical positive
 	public static final int DIRECTION_RIGHT = 0;
 	public static final int DIRECTION_UP = 1;
 	public static final int DIRECTION_LEFT = 2;
@@ -31,13 +31,13 @@ public class CONSTANTS {
 	
 	public static synchronized void printThreadInfo(String message) {
 		if (THREAD_MESSAGE) {
-			System.out.println(message + " -> Thread Info: " + Thread.currentThread().toString());
+			System.out.println("### " + message + " -> Thread Info: " + Thread.currentThread().toString());
 			int numberOfRunningThreads = 0;
 			for (Thread t : Thread.getAllStackTraces().keySet()) {
-				if (t.getState()==Thread.State.RUNNABLE) numberOfRunningThreads++;
+				if (t.getState() == Thread.State.RUNNABLE) numberOfRunningThreads++;
 			}
-			System.out.println("All Threads: "+ Thread.getAllStackTraces().keySet().size());
-			System.out.println("Running Threads: "+ numberOfRunningThreads);
+			System.out.println("    All Threads: "+ Thread.getAllStackTraces().keySet().size());
+			System.out.println("    Running Threads: "+ numberOfRunningThreads);
 		}
 	}
 }

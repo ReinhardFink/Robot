@@ -11,17 +11,6 @@ public class ConsolePanel_WITH_ASYN_Threads extends AbstractConsolePanel {
 	@Override
 	public void createScenario() {
 		createSimpleScenario();
-		//createProblemScenario();
-		/*
-		 * a GUI repaint has to placed here, because of deadlock when call from 
-		 * Main Thread for Room_WITH_SYNCED_Threads
-		 */
-		try {
-			room.paint();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
